@@ -7,6 +7,7 @@ import uexcel.com.reswebservices.exception.UserNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class UserDtoService {
@@ -34,14 +35,14 @@ public class UserDtoService {
 
     public User saveUser(User user) {
         if(user.getId()>0) {
-            user.setName(user.getName().toLowerCase());
+            user.setName(nameToLowerCase.apply(user.getName()));
             users.add(user);
             return user;
         }
 
         int maxId = users.stream().mapToInt(User::getId).max().orElse(0);
         user.setId(maxId+1);
-        user.setName(user.getName().toLowerCase());
+        user.setName(nameToLowerCase.apply(user.getName()));
         users.add(user);
         return user;
     }
@@ -50,5 +51,11 @@ public class UserDtoService {
         User user = findUserById(id);
         users.remove(user);
     }
+
+    public void updateUser(User user) {
+        saveUser(user);
+    }
+
+    Function<String,String> nameToLowerCase = String::toLowerCase;
 
 }

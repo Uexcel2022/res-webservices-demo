@@ -31,7 +31,7 @@ public class UsersResourceController {
     }
 
     @PostMapping(path = "users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<String> createUser(@Valid @RequestBody User user) {
         user.setId(0);
         User newUser =  userDtoService.saveUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
