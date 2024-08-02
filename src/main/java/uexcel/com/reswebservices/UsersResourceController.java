@@ -45,4 +45,9 @@ public class UsersResourceController {
     public void DeleteUser(@PathVariable int id) {
         userDtoService.deleteUserById(id);
     }
+    @PutMapping(path = "users/{id}")
+    public void updateUser(@Valid @RequestBody User user, @PathVariable int id) {
+        user.setId(id);
+        userDtoService.updateUser(user);
+    }
 }

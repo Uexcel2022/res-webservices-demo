@@ -34,12 +34,6 @@ public class UserDtoService {
     }
 
     public User saveUser(User user) {
-        if(user.getId()>0) {
-            user.setName(nameToLowerCase.apply(user.getName()));
-            users.add(user);
-            return user;
-        }
-
         int maxId = users.stream().mapToInt(User::getId).max().orElse(0);
         user.setId(maxId+1);
         user.setName(nameToLowerCase.apply(user.getName()));
@@ -53,7 +47,15 @@ public class UserDtoService {
     }
 
     public void updateUser(User user) {
-        saveUser(user);
+
+        User userToUpdate = findUserById(user.getId());
+
+        if(user.getName()!=null) {
+            userToUpdate.setName(nameToLowerCase.apply(user.getName()));
+        }
+        if(user.getBirthDate()!= null){
+            userToUpdate.setBirthDate(user.getBirthDate());
+        }
     }
 
     Function<String,String> nameToLowerCase = String::toLowerCase;
