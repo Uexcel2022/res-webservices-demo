@@ -22,7 +22,7 @@ public class CustomErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value={UserNotFoundException.class})
     public ResponseEntity<ErrorDetails> UserNotFoundException(UserNotFoundException userNotFound, WebRequest webRequest) {
         ErrorDetails errorDetails = new
-                ErrorDetails(LocalDateTime.now(), userNotFound.getMessage(), webRequest.getDescription(false));
+                ErrorDetails(LocalDateTime.now(), userNotFound.getMessage(), "Not Found", webRequest.getDescription(false));
         return new  ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
     }
 
@@ -30,14 +30,14 @@ public class CustomErrorHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ErrorDetails errorDetails = new
-                ErrorDetails(LocalDateTime.now(), Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(), request.getDescription(false));
+                ErrorDetails(LocalDateTime.now(), Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),"Not Found", request.getDescription(false));
         return new  ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<ErrorDetails> getErrorDetails(Exception ex, WebRequest webRequest) {
         ErrorDetails errorDetails = new
-                ErrorDetails(LocalDateTime.now(), ex.getMessage(), webRequest.getDescription(false));
+                ErrorDetails(LocalDateTime.now(), ex.getMessage(),"Server Error", webRequest.getDescription(false));
         return new  ResponseEntity<>(errorDetails,HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

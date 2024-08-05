@@ -1,7 +1,8 @@
-package uexcel.com.reswebservices;
+package uexcel.com.reswebservices.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,6 +12,8 @@ import uexcel.com.reswebservices.user.UserDtoService;
 
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UsersResourceController {
@@ -26,8 +29,12 @@ public class UsersResourceController {
     }
 
     @GetMapping(path = "users/{id}")
-    public User retrieveOneUser(@PathVariable int id) {
-        return userDtoService.findUserById(id);
+    public EntityModel<User> retrieveOneUser(@PathVariable int id) {
+       User user = userDtoService.findUserById(id);
+       EntityModel<User> entityModel = EntityModel.of(user);
+        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).retrieveAllUsers());
+       entityModel.add(link.withRel("all-users"));
+        return entityModel;
     }
 
     @PostMapping(path = "users")

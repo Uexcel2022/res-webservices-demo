@@ -1,12 +1,20 @@
 package uexcel.com.reswebservices.user;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "user_details")
 public class User {
+    @Id
+    @GeneratedValue
     private Integer id;
     @Pattern(regexp = ".{2,}",message = "Name should have at least 2 characters!")
     private String name;
