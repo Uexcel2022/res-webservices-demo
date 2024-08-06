@@ -1,9 +1,12 @@
-package uexcel.com.reswebservices.user;
+package uexcel.com.reswebservices.service;
 import org.springframework.stereotype.Component;
 import uexcel.com.reswebservices.exception.UserNotFoundException;
+import uexcel.com.reswebservices.user.User;
+import uexcel.com.reswebservices.repository.UserRepository;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Component
 public class UserDtoJpaService {
@@ -27,6 +30,7 @@ public class UserDtoJpaService {
     }
 
     public void deleteUserById(int id) {
+         findUserById(id);
          userRepository.deleteById(id);
     }
 

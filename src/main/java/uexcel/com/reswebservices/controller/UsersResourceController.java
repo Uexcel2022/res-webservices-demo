@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uexcel.com.reswebservices.user.User;
-import uexcel.com.reswebservices.user.UserDtoService;
+import uexcel.com.reswebservices.service.UserDtoService;
 
 
 import java.net.URI;

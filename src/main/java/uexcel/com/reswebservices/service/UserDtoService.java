@@ -1,8 +1,9 @@
-package uexcel.com.reswebservices.user;
+package uexcel.com.reswebservices.service;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import uexcel.com.reswebservices.exception.UserNotFoundException;
+import uexcel.com.reswebservices.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

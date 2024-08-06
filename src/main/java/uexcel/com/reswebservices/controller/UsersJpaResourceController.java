@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uexcel.com.reswebservices.user.User;
-import uexcel.com.reswebservices.user.UserDtoJpaService;
+import uexcel.com.reswebservices.service.UserDtoJpaService;
 
 import java.net.URI;
 import java.util.List;
@@ -56,4 +56,6 @@ public class UsersJpaResourceController {
         user.setId(id);
         userDtoJpaService.updateUser(user);
     }
+
+
 }
